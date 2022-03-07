@@ -15,5 +15,5 @@ This project provides code for the following:
 - To perform binomial logisitic regression models adjusted for study site, estimated sex of traveler, age of traveler, and group travel.
 - To develop a forest plot to visualize model output.
  
-Questions about this code can be directed to [Dr. Leigh Ann Ganzar](mailto:leigh.a.ganzar@uth.tmc.edu)
+Questions about this code can be directed to [Dr. Leigh Ann Ganzar](mailto:leigh.a.ganzar@uth.tmc.edu). 
 Thanks to Dr. Kevin Lanza and Katie Burford for collaboration on this project. 
