@@ -1,0 +1,29 @@
+Variable,Model,Odds,CIHigh,CILow
+Dog Walker (vs. Walker),Crossed Infrastructure,3.17,4.87,2.06
+Runner (vs. Walker),Crossed Infrastructure,0.50,1.18,0.17
+Cyclist (vs. Walker),Crossed Infrastructure,0.56,0.76,0.41
+E-Scooter Rider (vs. Walker),Crossed Infrastructure,1.85,2.54,1.35
+Other Traveler (vs. Walker),Crossed Infrastructure,3.06,5.33,1.73
+Female (vs. Male),Crossed Infrastructure,0.72,0.92,0.57
+Youth (vs. Adult),Crossed Infrastructure,0.94,3.21,0.21
+Older Adult (vs. Adult),Crossed Infrastructure,0.26,1.10,0.04
+Traveling in Group (vs. Traveling Alone),Crossed Infrastructure,0.98,1.23,0.77
+Morning (vs. Noon),Crossed Infrastructure,1.23,2.12,0.71
+Afternoon (vs. Noon),Crossed Infrastructure,0.75,1.82,0.27
+Evening (vs. Noon),Crossed Infrastructure,1.08,1.49,0.79
+Weekend (vs. Weekday),Crossed Infrastructure,1.49,2.35,0.94
+East Austin (vs. University),Crossed Infrastructure,1.24,1.80,0.87
+Dog Walker (vs. Walker),Not Recommended Infrastructure,1.74,2.66,1.14
+Runner (vs. Walker),Not Recommended Infrastructure,3.88,7.11,2.11
+Cyclist (vs. Walker),Not Recommended Infrastructure,0.86,1.10,0.67
+E-Scooter Rider (vs. Walker),Not Recommended Infrastructure,1.38,1.85,1.02
+Other Traveler (vs. Walker),Not Recommended Infrastructure,2.74,4.76,1.56
+Female (vs. Male),Not Recommended Infrastructure,0.74,0.91,0.61
+Youth (vs. Adult),Not Recommended Infrastructure,0.80,2.44,0.25
+Older Adult (vs. Adult),Not Recommended Infrastructure,0.57,1.14,0.27
+Traveling in Group (vs. Traveling Alone),Not Recommended Infrastructure,1.20,1.46,0.98
+Morning (vs. Noon),Not Recommended Infrastructure,1.13,1.81,0.71
+Afternoon (vs. Noon),Not Recommended Infrastructure,1.08,2.18,0.51
+Evening (vs. Noon),Not Recommended Infrastructure,0.94,1.23,0.72
+Weekend (vs. Weekday),Not Recommended Infrastructure,1.42,2.13,0.95
+East Austin (vs. University),Not Recommended Infrastructure,3.14,4.34,2.29
