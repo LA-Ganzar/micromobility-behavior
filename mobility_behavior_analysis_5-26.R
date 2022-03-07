@@ -1,6 +1,6 @@
 # Mobility Behavior Data Analysis
 # Author: Leigh Ann Ganzar
-# Last modified: 6-8-2021
+# Last modified: 5-26-2021
 
 # --------------------------------------------------------------------------
 
@@ -18,66 +18,58 @@ library(sjlabelled)
 library(regclass)
 
 # set working directory
-setwd("/Users/leighannganzar/Desktop/Post-Doc/Projects/Mobility Behavior")
+setwd("/Users/leighannganzar/Desktop/Post-Doc/Projects/Mobility Behavior/micromobility behavior")
 
-# --------------------------------------------------------------------------
-
-# INTER RATER RELIABILTY
+# # INTER RATER RELIABILTY --------------------------------------------------------------------------
 # import dataset for IRR 
-irr_df <- read_csv("IRR_Mobility_Behavior_052621.csv")
+irr_df <- read.csv("IRR_Mobility_Behavior_052621.csv")
 
-# create dataframes for each pair of variables
-Sex_irr <- irr_df %>% 
-  select(Sex_kl, Sex_kb)
-Age_irr <- irr_df %>% 
-  select(Age_kl, Age_kb)
-Group_irr <- irr_df %>% 
-  select(Group_kl, Group_kb)
-Traveler_irr <- irr_df %>% 
-  select(Traveler_kl, Traveler_kb)
-Sidewalk_irr <- irr_df %>% 
-  select(Sidewalk_kl, Sidewalk_kb)
-Bike_Lane_With_irr <- irr_df %>% 
-  select(Bike_Lane_With_kl, Bike_Lane_With_kb)
-Bike_Lane_Against_irr <- irr_df %>% 
-  select(Bike_Lane_Against_kl, Bike_Lane_Against_kb)
-Street_With_Traffic_irr <- irr_df %>% 
-  select(Street_With_Traffic_kl, Street_With_Traffic_kb)
-Street_Against_Traffic_irr <- irr_df %>% 
-  select(Street_Against_Traffic_kl, Street_Against_Traffic_kb)
+# create calculate Cohen's Kappa for each variable
+sex_irr <- irr_df %>% 
+  select(Sex_kl, Sex_kb) %>%
+  kappa2()
 
-# cohen's kappa calculations
-kappa2(Sex_irr)
-# kappa = 0.934
-kappa2(Age_irr)
-# kappa = 0.951
-kappa2(Group_irr)
-# kappa = 0.966
-kappa2(Traveler_irr)
-# kappa = 0.972
-kappa2(Sidewalk_irr)
-# kappa = 0.939
-kappa2(Bike_Lane_With_irr)
-# kappa = 0.931
-kappa2(Bike_Lane_Against_irr)
-# kappa = 0.892
-kappa2(Street_With_Traffic_irr)
-# kappa = 0.89
-kappa2(Street_Against_Traffic_irr)
-# kappa = 0.958
+age_irr <- irr_df %>% 
+  select(Age_kl, Age_kb) %>%
+  kappa2()
 
-# range across 9 items = 0.89 - 0.966
+group_irr <- irr_df %>% 
+  select(Group_kl, Group_kb)%>%
+  kappa2()
 
-# average across 9 items
-irr_average <- c(0.934, 0.951, 0.966, 0.972, 0.939, 0.931, 0.892, 0.89, 0.958)
+traveler_irr <- irr_df %>% 
+  select(Traveler_kl, Traveler_kb)%>%
+  kappa2()
+
+sidewalk_irr <- irr_df %>% 
+  select(Sidewalk_kl, Sidewalk_kb)%>%
+  kappa2()
+
+bike_lane_with_irr <- irr_df %>% 
+  select(Bike_Lane_With_kl, Bike_Lane_With_kb) %>%
+  kappa2()
+
+bike_lane_against_irr <- irr_df %>% 
+  select(Bike_Lane_Against_kl, Bike_Lane_Against_kb) %>%
+  kappa2()
+
+street_with_traffic_irr <- irr_df %>% 
+  select(Street_With_Traffic_kl, Street_With_Traffic_kb) %>%
+  kappa2()
+
+street_against_traffic_irr <- irr_df %>% 
+  select(Street_Against_Traffic_kl, Street_Against_Traffic_kb) %>%
+  kappa2()
+
+# average IRR across 9 items
+irr_average <- c(sex_irr$value, age_irr$value, group_irr$value, traveler_irr$value, 
+                 sidewalk_irr$value, bike_lane_with_irr$value, bike_lane_against_irr$value,
+                 street_with_traffic_irr$value, street_against_traffic_irr$value)
 summary(irr_average)
 sd(irr_average)
-# mean = 0.937 , SD = 0.03
 
-# --------------------------------------------------------------------------
-
-# MAIN AIM ANALYSES
-# import dataset for analyses
+# MAIN AIM ANALYSES-------------------------------------------------------------------------
+# import data sets 
 mobility_prelim <- read_csv("Data_Mobility_Behavior_052621.csv")
 weekend <- read_csv("Data_Mobility_Behavior_Weekend.csv")
 mobilitydf <- merge(weekend, mobility_prelim, by = "Row_ID")
@@ -142,7 +134,7 @@ mobilitydf$Location_binaryfactor <- as_factor(mobilitydf$Location_binary)
 
 # ---------------------------------------------------------------------------------------------
 
-# desciptive characteristics table
+# descriptive characteristics table
 # summary statistics for total sample
 CrossTable(mobilitydf$Traveler)
 CrossTable(mobilitydf$Site)
@@ -201,9 +193,7 @@ multiple_traveler
 prop.table(multiple_traveler, 2)
 chisq.test(multiple_traveler)
 
-# -------------------------------------------------------------------------------------
-
-# logistic regression models for preferred infrastructure
+# logistic regression models for preferred infrastructure---------------------------------------------
 ## unadjusted
 model1 <- glm(Not_Recommended ~ Traveler, data = mobilitydf, family = binomial)
 summary(model1)
@@ -220,7 +210,6 @@ model3 <- glm(Not_Recommended ~ Traveler + Sex + Age + Group + Time + Weekend + 
 summary(model3)
 or_glm(data = mobilitydf, model = model3)
 VIF(model3)
-
 
 # logistic regression models for multiple infrastructure types crossed
 ## unadjusted
@@ -390,20 +379,4 @@ ggplot(df_or,
   theme(axis.title.x = element_text(size = 20))+
   theme(legend.key.height=unit(3,"line"))
 
-ggsave("/Users/leighannganzar/Desktop/Post-Doc/Projects/Mobility Behavior/bothmodels_oneplot.png", height=20, width=18, dpi=500)
-
-## models WITHOUT time variable 
-tab_model(model1, model2, model5, model6,
-          file="mobility_behavior_withouttime_logit_table.doc")
-plot_models(model2, model6,
-            m.labels = c("Not Recommended Infrastructure",
-                         "Multiple Infrastructure Used"))
-
-## models with time variable with robust standard error to account for clustering
-tab_model(model1, model2, model5, model6, 
-          robust = TRUE,
-          vcov.fun = "CR", 
-          vcov.type = "CR1",
-          vcov.args = list(cluster = mobilitydf$Time),
-          file="mobility_behavior_robustSE_logit_table.doc")
-
+ggsave("bothmodels_oneplot.png", height=20, width=18, dpi=500)
