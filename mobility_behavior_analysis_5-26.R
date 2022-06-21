@@ -2,12 +2,9 @@
 # Author: Leigh Ann Ganzar
 # Last modified: 5-26-2021
 
-# --------------------------------------------------------------------------
-
+# Setup ----
 # load packages
 library(tidyverse)
-library(dplyr)
-library(ggplot2)
 library(oddsratio)
 library(irr)
 library(miceadds)
@@ -22,7 +19,7 @@ setwd("/Users/leighannganzar/Desktop/Post-Doc/Projects/Mobility Behavior/micromo
 
 # # INTER RATER RELIABILTY --------------------------------------------------------------------------
 # import dataset for IRR 
-irr_df <- read.csv("IRR_Mobility_Behavior_052621.csv")
+irr_df <- readr::read_csv("IRR_Mobility_Behavior_052621.csv")
 
 # create calculate Cohen's Kappa for each variable
 sex_irr <- irr_df %>% 
@@ -68,7 +65,7 @@ irr_average <- c(sex_irr$value, age_irr$value, group_irr$value, traveler_irr$val
 summary(irr_average)
 sd(irr_average)
 
-# MAIN AIM ANALYSES-------------------------------------------------------------------------
+# MAIN AIM ANALYSES-----
 # import data sets 
 mobility_prelim <- read_csv("Data_Mobility_Behavior_052621.csv")
 weekend <- read_csv("Data_Mobility_Behavior_Weekend.csv")
@@ -132,9 +129,7 @@ mobilitydf <- mobilitydf %>%
               Infrastructure_Crossed >= 1 ~ 1))
 mobilitydf$Location_binaryfactor <- as_factor(mobilitydf$Location_binary)
 
-# ---------------------------------------------------------------------------------------------
-
-# descriptive characteristics table
+# descriptive characteristics table ----
 # summary statistics for total sample
 CrossTable(mobilitydf$Traveler)
 CrossTable(mobilitydf$Site)
@@ -193,7 +188,7 @@ multiple_traveler
 prop.table(multiple_traveler, 2)
 chisq.test(multiple_traveler)
 
-# logistic regression models for preferred infrastructure---------------------------------------------
+# logistic regression models for preferred infrastructure----
 ## unadjusted
 model1 <- glm(Not_Recommended ~ Traveler, data = mobilitydf, family = binomial)
 summary(model1)
@@ -231,9 +226,7 @@ model7_or <-exp(cbind(OR = coef(model7), confint(model7)))
 round(model7_or, digits=4)
 VIF(model7)
 
-# --------------------------------------------------------------------------------
-
-# tables and plots for regression models
+# tables and plots for regression models ----
 ## models with time variable as covariate
 tab_model(model1, model3, model5, model7,
           file="mobility_behavior_logit_table.doc")
@@ -304,7 +297,7 @@ p2 <- plot_model(model7,
 p2 + theme_sjplot2(base_size = 14)
 
 # just fully adjusted models in one plot
-df_or <- read_csv("/Users/leighannganzar/Desktop/Post-Doc/Projects/Mobility Behavior/ORtree_both_models.csv")
+df_or <- read_csv("ORtree_both_models.csv")
 df_or$Variable <- factor(df_or$Variable, levels = c("East Austin (vs. University)",
                                                     "Weekend (vs. Weekday)",
                                                     "Evening (vs. Noon)",
