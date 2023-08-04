@@ -17,3 +17,5 @@ This repository provides code for the following:
  
 Questions about this code can be directed to [Dr. Leigh Ann Ganzar](mailto:leigh.a.ganzar@uth.tmc.edu). 
 Thanks to Dr. Kevin Lanza and Katie Burford for collaboration on this project. 
+
+![doi badge](https://zenodo.org/badge/467181193.svg)
